@@ -16,10 +16,10 @@ local OrionLib = {
 		Default = {
 			Main = Color3.fromRGB(10, 10, 10),            -- Fundo principal (preto)
 			Second = Color3.fromRGB(20, 20, 20),          -- Fundo secundário (preto suave)
-			Stroke = Color3.fromRGB(100, 50, 10),         -- Contorno laranja queimado bem escuro
-			Divider = Color3.fromRGB(120, 60, 15),        -- Divisores laranja queimado
-			Text = Color3.fromRGB(180, 90, 20),           -- Texto cobre queimado
-			TextDark = Color3.fromRGB(210, 120, 60)       -- Texto laranja mais claro queimado
+			Stroke = Color3.fromRGB(20, 60, 100),         -- Contorno azul escuro
+			Divider = Color3.fromRGB(30, 80, 130),        -- Divisores azul mais vibrante
+			Text = Color3.fromRGB(70, 160, 255),          -- Texto azul claro (brilhante)
+			TextDark = Color3.fromRGB(140, 200, 255)      -- Texto azul acinzentado (mais suave)
 		}
 	},
 	SelectedTheme = "Default",
