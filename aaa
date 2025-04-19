@@ -14,12 +14,15 @@ local OrionLib = {
 	Flags = {},
 	Themes = {
 		Default = {
-			Main = Color3.fromRGB(255, 55, 0),           -- Fundo principal (laranja escuro)
-			Second = Color3.fromRGB(255, 90, 30),        -- Fundo secundário (laranja médio)
-			Stroke = Color3.fromRGB(200, 40, 0),         -- Contorno laranja mais escuro
-			Divider = Color3.fromRGB(255, 120, 50),      -- Divisores laranja suave
-			Text = Color3.fromRGB(255, 150, 80),         -- Texto laranja claro (mais suave)
-			TextDark = Color3.fromRGB(255, 130, 70)      -- Texto laranja mais claro (brilhante)
+			Main = Color3.fromRGB(40, 40, 60),           -- Fundo principal (roxo escuro)
+			Second = Color3.fromRGB(60, 60, 80),         -- Fundo secundário (roxo azulado)
+			Stroke = Color3.fromRGB(20, 20, 30),         -- Contorno (preto escuro)
+			Divider = Color3.fromRGB(100, 100, 180),     -- Divisores (azul suave)
+			Text = Color3.fromRGB(200, 200, 255),        -- Texto (azul claro)
+			TextDark = Color3.fromRGB(150, 150, 220),    -- Texto escuro (azul mais suave)
+			MainTransparency = 0.2,                      -- Transparência para o fundo principal (20%)
+			SecondTransparency = 0.3,                    -- Transparência para o fundo secundário (30%)
+			StrokeTransparency = 0.4,                    -- Transparência para o contorno (40%)
 		}
 	},
 	SelectedTheme = "Default",
