@@ -14,15 +14,12 @@ local OrionLib = {
 	Flags = {},
 	Themes = {
 		Default = {
-			Main = Color3.fromRGB(50, 255, 50),           -- Fundo principal (verde limão)
-			Second = Color3.fromRGB(25, 130, 25),         -- Fundo secundário (verde escuro)
-			Stroke = Color3.fromRGB(0, 0, 0),             -- Contorno (preto)
-			Divider = Color3.fromRGB(100, 255, 100),      -- Divisores (verde limão vibrante)
-			Text = Color3.fromRGB(255, 255, 255),          -- Texto (branco)
-			TextDark = Color3.fromRGB(180, 180, 180),      -- Texto escuro (cinza claro)
-			MainTransparency = 0.3,                        -- Transparência para o fundo principal (30%)
-			SecondTransparency = 0.5,                      -- Transparência para o fundo secundário (40%)
-			StrokeTransparency = 0.5,                      -- Transparência para o contorno (50%)
+			Main = Color3.fromRGB(150, 40, 0),           -- Fundo principal (laranja escuro)
+			Second = Color3.fromRGB(100, 30, 0),         -- Fundo secundário (laranja ainda mais escuro)
+			Stroke = Color3.fromRGB(50, 20, 0),          -- Contorno laranja bem escuro
+			Divider = Color3.fromRGB(180, 60, 10),       -- Divisores laranja escuro vibrante
+			Text = Color3.fromRGB(255, 165, 50),         -- Texto laranja claro (brilhante)
+			TextDark = Color3.fromRGB(255, 130, 40)      -- Texto laranja suave (mais claro)
 		}
 	},
 	SelectedTheme = "Default",
@@ -33,6 +30,46 @@ local OrionLib = {
 
 
 
+
+-- INÍCIO: Suporte a múltiplos temas
+OrionLib.Themes = {
+    Default = { Main = Color3.fromRGB(150, 40, 0), Second = Color3.fromRGB(100, 30, 0), Stroke = Color3.fromRGB(50, 20, 0), Divider = Color3.fromRGB(180, 60, 10), Text = Color3.fromRGB(255, 165, 50), TextDark = Color3.fromRGB(255, 130, 40) },
+    Dark = { Main = Color3.fromRGB(25, 25, 25), Second = Color3.fromRGB(35, 35, 35), Stroke = Color3.fromRGB(55, 55, 55), Divider = Color3.fromRGB(70, 70, 70), Text = Color3.fromRGB(255, 255, 255), TextDark = Color3.fromRGB(200, 200, 200) },
+    Midnight = { Main = Color3.fromRGB(10, 10, 30), Second = Color3.fromRGB(20, 20, 50), Stroke = Color3.fromRGB(60, 60, 100), Divider = Color3.fromRGB(100, 100, 150), Text = Color3.fromRGB(200, 200, 255), TextDark = Color3.fromRGB(150, 150, 200) },
+    Gothic = { Main = Color3.fromRGB(15, 15, 15), Second = Color3.fromRGB(30, 30, 30), Stroke = Color3.fromRGB(80, 0, 80), Divider = Color3.fromRGB(100, 0, 100), Text = Color3.fromRGB(255, 255, 255), TextDark = Color3.fromRGB(180, 180, 180) },
+    NeonDark = { Main = Color3.fromRGB(10, 10, 10), Second = Color3.fromRGB(20, 20, 20), Stroke = Color3.fromRGB(0, 255, 150), Divider = Color3.fromRGB(0, 200, 100), Text = Color3.fromRGB(0, 255, 150), TextDark = Color3.fromRGB(0, 200, 120) },
+    BloodRed = { Main = Color3.fromRGB(20, 0, 0), Second = Color3.fromRGB(40, 0, 0), Stroke = Color3.fromRGB(100, 0, 0), Divider = Color3.fromRGB(150, 0, 0), Text = Color3.fromRGB(255, 100, 100), TextDark = Color3.fromRGB(200, 80, 80) },
+    Ocean = { Main = Color3.fromRGB(0, 40, 60), Second = Color3.fromRGB(0, 60, 80), Stroke = Color3.fromRGB(0, 100, 150), Divider = Color3.fromRGB(0, 140, 200), Text = Color3.fromRGB(180, 240, 255), TextDark = Color3.fromRGB(100, 200, 255) },
+    Matrix = { Main = Color3.fromRGB(0, 0, 0), Second = Color3.fromRGB(10, 10, 10), Stroke = Color3.fromRGB(0, 255, 0), Divider = Color3.fromRGB(0, 180, 0), Text = Color3.fromRGB(0, 255, 0), TextDark = Color3.fromRGB(0, 180, 0) },
+    Light = { Main = Color3.fromRGB(255, 255, 255), Second = Color3.fromRGB(240, 240, 240), Stroke = Color3.fromRGB(200, 200, 200), Divider = Color3.fromRGB(180, 180, 180), Text = Color3.fromRGB(0, 0, 0), TextDark = Color3.fromRGB(80, 80, 80) }
+}
+
+function OrionLib:SetTheme(ThemeName)
+    if self.Themes[ThemeName] then
+        self.SelectedTheme = ThemeName
+        for Type, Objects in pairs(self.ThemeObjects) do
+            for _, Object in ipairs(Objects) do
+                local prop = ReturnProperty(Object)
+                if prop then
+                    Object[prop] = self.Themes[ThemeName][Type]
+                end
+            end
+        end
+    else
+        warn("Tema '" .. tostring(ThemeName) .. "' não encontrado.")
+    end
+end
+
+function OrionLib:GetAvailableThemes()
+    local list = {}
+    for name, _ in pairs(self.Themes) do
+        table.insert(list, name)
+    end
+    return list
+end
+-- FIM: Suporte a múltiplos temas
+
+
 --Feather Icons https://github.com/evoincorp/lucideblox/tree/master/src/modules/util - Created by 7kayoh
 local Icons = {}
 
@@ -40,6 +77,9 @@ local Success, Response = pcall(function()
 	Icons = HttpService:JSONDecode(game:HttpGetAsync("https://raw.githubusercontent.com/evoincorp/lucideblox/master/src/modules/util/icons.json")).icons
 end)
 
+if not Success then
+	warn("\nOrion Library - Failed to load Feather Icons. Error code: " .. Response .. "\n")
+end	
 
 local function GetIcon(IconName)
 	if Icons[IconName] ~= nil then
