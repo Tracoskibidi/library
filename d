@@ -22,8 +22,8 @@ local OrionLib = {
 		},
 
 		Bliz_T = {
-			Main = Color3.fromRGB(0, 0, 0), -- Preto p
-			Second = Color3.fromRGB(20, 20, 20), -- Cinza bemste
+			Main = Color3.fromRGB(0, 0, 0), -- Pre
+			Second = Color3.fromRGB(20, 20, 20), -- Cinza bem escuro para contraste
 			Stroke = Color3.fromRGB(100, 150, 255), -- Azul bebê claro para detalhes
 			Divider = Color3.fromRGB(80, 120, 200), -- Azul bebê mais escuro para divisores
 			Text = Color3.fromRGB(180, 220, 255), -- Azul bebê claro para textos
@@ -35,16 +35,10 @@ local OrionLib = {
 	SaveCfg = false
 }
 
---Feather Icons https://github.com/evoincorp/lucideblox/tree/master/src/modules/util - Created by 7kayoh
-local Icons = {}
 
-local Success, Response = pcall(function()
-	Icons = HttpService:JSONDecode(game:HttpGetAsync("https://raw.githubusercontent.com/evoincorp/lucideblox/master/src/modules/util/icons.json")).icons
-end)
 
-if not Success then
-	warn("\nOrion Library - Failed to load Feather Icons. Error code: " .. Response .. "\n")
-end	
+
+
 
 local function GetIcon(IconName)
 	if Icons[IconName] ~= nil then
@@ -269,7 +263,7 @@ local function SaveCfg(Name)
 end
 
 local WhitelistedMouse = {Enum.UserInputType.MouseButton1, Enum.UserInputType.MouseButton2,Enum.UserInputType.MouseButton3}
-local BlacklistedKeys = {Enum.KeyCode.Unknown,Enum.KeyCode.W,Enum.KeyCode.A,Enum.KeyCode.S,Enum.KeyCode.D,Enum.KeyCode.Up,Enum.KeyCode.Left,Enum.KeyCode.Down,Enum.KeyCode.Right,Enum.KeyCode.Slash,Enum.KeyCode.Tab,Enum.KeyCode.Backspace,Enum.KeyCode.Escape}
+local BlacklistedKeys = {Enum.KeyCode.Unknown,Enum.KeyCode.W,Enum.KeyCode.A,Enum.KeyCode.S,Enum.KeyCode.D,Enum.KeyCode.Z,Enum.KeyCode.Up,Enum.KeyCode.Left,Enum.KeyCode.Down,Enum.KeyCode.Right,Enum.KeyCode.Slash,Enum.KeyCode.Tab,Enum.KeyCode.Backspace,Enum.KeyCode.Escape}
 
 local freeMouse = Create("TextButton", {Name = "FMouse", Size = UDim2.new(), BackgroundTransparency = 1, Text = "", Position = UDim2.new(), Modal = true, Parent = Orion, Visible = false})
 local mouselock = false
@@ -533,7 +527,7 @@ function OrionLib:MakeWindow(WindowConfig)
 		WindowConfig.IntroEnabled = true
 	end
 	WindowConfig.FreeMouse = WindowConfig.FreeMouse or false
-	WindowConfig.KeyToOpenWindow = WindowConfig.KeyToOpenWindow or "Z"
+	WindowConfig.KeyToOpenWindow = WindowConfig.KeyToOpenWindow or "Q"
 	WindowConfig.IntroText = WindowConfig.IntroText or "Made By Traco"
 	WindowConfig.CloseCallback = WindowConfig.CloseCallback or function() end
 	WindowConfig.ShowIcon = WindowConfig.ShowIcon or false
@@ -584,27 +578,19 @@ function OrionLib:MakeWindow(WindowConfig)
 		TabHolder.CanvasSize = UDim2.new(0, 0, 0, TabHolder.UIListLayout.AbsoluteContentSize.Y + 16)
 	end)
 
-	local CloseBtn = SetChildren(SetProps(MakeElement("Button"), {
-		Size = UDim2.new(0, 0, 0, 0),
-		Position = UDim2.new(0, 0, 0, 0),
-		BackgroundTransparency = 1
-	}), {
+
 		AddThemeObject(SetProps(MakeElement("Image", "rbxassetid://7072725342"), {
 			Position = UDim2.new(0, 9, 0, 6),
 			Size = UDim2.new(0, 18, 0, 18)
 		}), "Text")
-	})
 
-	local MinimizeBtn = SetChildren(SetProps(MakeElement("Button"), {
-		Size = UDim2.new(0, 0, 0, 0),
-		BackgroundTransparency = 1
-	}), {
+
 		AddThemeObject(SetProps(MakeElement("Image", "rbxassetid://7072719338"), {
 			Position = UDim2.new(0, 9, 0, 6),
 			Size = UDim2.new(0, 18, 0, 18),
 			Name = "Ico"
 		}), "Text")
-	})
+
 
 	local DragPoint = SetProps(MakeElement("TFrame"), {
 		Size = UDim2.new(1, 0, 0, 50)
@@ -709,8 +695,6 @@ function OrionLib:MakeWindow(WindowConfig)
 					Size = UDim2.new(0, 1, 1, 0),
 					Position = UDim2.new(0.5, 0, 0, 0)
 				}), "Stroke"), 
-				CloseBtn,
-				MinimizeBtn
 			}), "Second"), 
 		}),
 		DragPoint,
@@ -754,7 +738,7 @@ function OrionLib:MakeWindow(WindowConfig)
 		
 		OrionLib:MakeNotification({
 			Name = "Interface Hidden",
-			Content = "Tap Z to reopen the interface",
+			Content = "Tap Q to reopen the interface",
 			Time = 3
 		})
 
