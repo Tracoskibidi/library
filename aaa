@@ -22,7 +22,7 @@ local OrionLib = {
 		},
 
 		Bliz_T = {
-			Main = Color3.fromRGB(0, 0, 0), -- Preto para o fundo
+			Main = Color3.fromRGB(0, 0, 0), -- Preto p
 			Second = Color3.fromRGB(20, 20, 20), -- Cinza bem escuro para contraste
 			Stroke = Color3.fromRGB(100, 150, 255), -- Azul bebê claro para detalhes
 			Divider = Color3.fromRGB(80, 120, 200), -- Azul bebê mais escuro para divisores
@@ -533,7 +533,7 @@ function OrionLib:MakeWindow(WindowConfig)
 		WindowConfig.IntroEnabled = true
 	end
 	WindowConfig.FreeMouse = WindowConfig.FreeMouse or false
-	WindowConfig.KeyToOpenWindow = WindowConfig.KeyToOpenWindow or "M"
+	WindowConfig.KeyToOpenWindow = WindowConfig.KeyToOpenWindow or "Z"
 	WindowConfig.IntroText = WindowConfig.IntroText or "Made By Traco"
 	WindowConfig.CloseCallback = WindowConfig.CloseCallback or function() end
 	WindowConfig.ShowIcon = WindowConfig.ShowIcon or false
@@ -754,7 +754,7 @@ function OrionLib:MakeWindow(WindowConfig)
 		
 		OrionLib:MakeNotification({
 			Name = "Interface Hidden",
-			Content = "Tap "  .. WindowConfig.KeyToOpenWindow .. " to reopen the interface",
+			Content = "Tap "Z" to reopen the interface",
 			Time = 3
 		})
 
@@ -790,25 +790,7 @@ function OrionLib:MakeWindow(WindowConfig)
 		end
 	end)
 
-	AddConnection(MinimizeBtn.MouseButton1Up, function()
-		if Minimized then
-			TweenService:Create(MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, 615, 0, 344)}):Play()
-			MinimizeBtn.Ico.Image = "rbxassetid://7072719338"
-			wait(.02)
-			MainWindow.ClipsDescendants = false
-			WindowStuff.Visible = false
-			WindowTopBarLine.Visible = true
-		else
-			MainWindow.ClipsDescendants = true
-			WindowTopBarLine.Visible = false
-			MinimizeBtn.Ico.Image = "rbxassetid://7072720870"
-
-			TweenService:Create(MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, WindowName.TextBounds.X + 140, 0, 50)}):Play()
-			wait(0.1)
-			WindowStuff.Visible = false	
-		end
-		Minimized = not Minimized    
-	end)
+	
 
 	local function LoadSequence()
 		MainWindow.Visible = false
@@ -1977,13 +1959,7 @@ function OrionLib:MakeWindow(WindowConfig)
 	--					nonce = HttpService:GenerateGUID(false),
 	--					args = {code = 'sirius'}
 	--				})
-	--			})
-	--		end
-	--		OrionLib:MakeNotification({
-	--			Name = "UI Library Available",
-	--			Content = "New UI Library Available - Joining Discord (#announcements)",
-	--			Time = 8
-	--		})
+	--		
 	--		spawn(function()
 	--			local UI = game:GetObjects("rbxassetid://11403719739")[1]
 
