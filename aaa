@@ -23,7 +23,7 @@ local OrionLib = {
 
 		Bliz_T = {
 			Main = Color3.fromRGB(0, 0, 0), -- Preto p
-			Second = Color3.fromRGB(20, 20, 20), -- Cinza bem escuro para contraste
+			Second = Color3.fromRGB(20, 20, 20), -- Cinza bemste
 			Stroke = Color3.fromRGB(100, 150, 255), -- Azul bebê claro para detalhes
 			Divider = Color3.fromRGB(80, 120, 200), -- Azul bebê mais escuro para divisores
 			Text = Color3.fromRGB(180, 220, 255), -- Azul bebê claro para textos
@@ -754,7 +754,7 @@ function OrionLib:MakeWindow(WindowConfig)
 		
 		OrionLib:MakeNotification({
 			Name = "Interface Hidden",
-			Content = "Tap "Z" to reopen the interface",
+			Content = "Tap Z to reopen the interface",
 			Time = 3
 		})
 
