@@ -586,7 +586,6 @@ function OrionLib:MakeWindow(WindowConfig)
 			Position = UDim2.new(0, 9, 0, 6),
 			Size = UDim2.new(0, 18, 0, 18)
 		}), "Text")
-	})
 
 	
 		AddThemeObject(SetProps(MakeElement("Image", "rbxassetid://7072719338"), {
@@ -594,7 +593,6 @@ function OrionLib:MakeWindow(WindowConfig)
 			Size = UDim2.new(0, 18, 0, 18),
 			Name = "Ico"
 		}), "Text")
-	})
 
 	local DragPoint = SetProps(MakeElement("TFrame"), {
 		Size = UDim2.new(1, 0, 0, 50)
