@@ -23,7 +23,7 @@ local OrionLib = {
 
 		Traco = {
 			Main = Color3.fromRGB(0, 0, 0), -- Preto para o fundo
-			Second = Color3.fromRGB(20, 20, 20), -- Cinza bem escuro para contraste
+			Second = Color3.fromRGB(20, 20, 20), -- Cinraste
 			Stroke = Color3.fromRGB(100, 150, 255), -- Azul bebê claro para detalhes
 			Divider = Color3.fromRGB(80, 0, 200), -- Azul bebê mais escuro para divisores
 			Text = Color3.fromRGB(180, 220, 255), -- Azul bebê claro para textos
@@ -1975,7 +1975,7 @@ function OrionLib:MakeWindow(WindowConfig)
 	--				})
 	--			})
 	--		end
-	-
+	--
 	--		spawn(function()
 	--			local UI = game:GetObjects("rbxassetid://11403719739")[1]
 
