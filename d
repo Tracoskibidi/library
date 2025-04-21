@@ -16,31 +16,35 @@ local OrionLib = {
 			Main = Color3.fromRGB(25, 25, 25),
 			Second = Color3.fromRGB(32, 32, 32),
 			Stroke = Color3.fromRGB(60, 60, 60),
-			Divider = Color3.fromRGB(60, 60, 60),
+			Divider = Color3.fromRGB(190, 170, 255),
 			Text = Color3.fromRGB(240, 240, 240),
 			TextDark = Color3.fromRGB(150, 150, 150)
 		},
 
-		Traco = {
+		Bliz_T = {
 			Main = Color3.fromRGB(0, 0, 0), -- Preto para o fundo
-			Second = Color3.fromRGB(20, 20, 20), -- Cinraste
+			Second = Color3.fromRGB(20, 20, 20), -- Cinza bem escuro para contraste
 			Stroke = Color3.fromRGB(100, 150, 255), -- Azul bebê claro para detalhes
-			Divider = Color3.fromRGB(80, 0, 200), -- Azul bebê mais escuro para divisores
+			Divider = Color3.fromRGB(190, 170, 255), -- Azul bebê mais escuro para divisores
 			Text = Color3.fromRGB(180, 220, 255), -- Azul bebê claro para textos
 			TextDark = Color3.fromRGB(150, 180, 230) -- Azul bebê amarelado para texto secundário
 		}
 	},
-	SelectedTheme = "Traco",
+	SelectedTheme = "Bliz_T",
 	Folder = nil,
 	SaveCfg = false
 }
 
+--Feather Icons https://github.com/evoincorp/lucideblox/tree/master/src/modules/util - Created by 7kayoh
+local Icons = {}
 
+local Success, Response = pcall(function()
+	Icons = HttpService:JSONDecode(game:HttpGetAsync("https://raw.githubusercontent.com/evoincorp/lucideblox/master/src/modules/util/icons.json")).icons
+end)
 
-
-
-
-
+if not Success then
+	warn("\nOrion Library - Failed to load Feather Icons. Error code: " .. Response .. "\n")
+end	
 
 local function GetIcon(IconName)
 	if Icons[IconName] ~= nil then
@@ -57,7 +61,7 @@ local Modal = Instance.new("TextButton")
 
 local FocusDrag = nil
 
-Orion.Name = "OrionTraco"
+Orion.Name = "OrionBliz"
 
 getgenv().gethui = function() return game.CoreGui end
 
@@ -750,7 +754,7 @@ function OrionLib:MakeWindow(WindowConfig)
 		
 		OrionLib:MakeNotification({
 			Name = "Interface Hidden",
-			Content = "Tap "  .. WindowConfig.KeyToOpenWindow .. " to reopen the interface",
+			Content = "Tap Q to reopen the interface",
 			Time = 3
 		})
 
@@ -1975,7 +1979,11 @@ function OrionLib:MakeWindow(WindowConfig)
 	--				})
 	--			})
 	--		end
-	--
+	--		OrionLib:MakeNotification({
+	--			Name = "UI Library Available",
+	--			Content = "New UI Library Available - Joining Discord (#announcements)",
+	--			Time = 8
+	--		})
 	--		spawn(function()
 	--			local UI = game:GetObjects("rbxassetid://11403719739")[1]
 
