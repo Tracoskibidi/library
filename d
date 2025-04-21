@@ -22,7 +22,7 @@ local OrionLib = {
 		},
 
 		Bliz_T = {
-			Main = Color3.fromRGB(0, 0, 0), -- Preto para o fundo
+			Main = Color3.fromRGB(0, 0, 0), -- Pret
 			Second = Color3.fromRGB(20, 20, 20), -- Cinza bem escuro para contraste
 			Stroke = Color3.fromRGB(100, 150, 255), -- Azul bebê claro para detalhes
 			Divider = Color3.fromRGB(255, 255, 238),
