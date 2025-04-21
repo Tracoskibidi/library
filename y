@@ -24,9 +24,9 @@ local OrionLib = {
 		Bliz_T = {
 			Main = Color3.fromRGB(0, 0, 0), -- Preto para o fundo
 			Second = Color3.fromRGB(20, 20, 20),
-			Stroke = Color3.fromRGB(100, 70, 120), -- Base
+			Stroke = Color3.fromRGB(190, 170, 255), -- Base
 			Divider = Color3.fromRGB(190, 170, 255), 
-			Text = Color3.fromRGB(210, 195, 255), -- Mais clara que Stroke 100, 70, 120 190, 170, 255
+			Text = Color3.fromRGB(110, 95, 155,) 
 			TextDark = Color3.fromRGB(150, 130, 210) -- Mais escura q
 		}
 	},
