@@ -21,30 +21,26 @@ local OrionLib = {
 			TextDark = Color3.fromRGB(150, 150, 150)
 		},
 
-		Bliz_T = {
+		Traco = {
 			Main = Color3.fromRGB(0, 0, 0), -- Preto para o fundo
 			Second = Color3.fromRGB(20, 20, 20), -- Cinza bem escuro para contraste
 			Stroke = Color3.fromRGB(100, 150, 255), -- Azul bebê claro para detalhes
-			Divider = Color3.fromRGB(80, 120, 200), -- Azul bebê mais escuro para divisores
+			Divider = Color3.fromRGB(80, 0, 200), -- Azul bebê mais escuro para divisores
 			Text = Color3.fromRGB(180, 220, 255), -- Azul bebê claro para textos
 			TextDark = Color3.fromRGB(150, 180, 230) -- Azul bebê amarelado para texto secundário
 		}
 	},
-	SelectedTheme = "Bliz_T",
+	SelectedTheme = "Traco",
 	Folder = nil,
 	SaveCfg = false
 }
 
---Feather Icons https://github.com/evoincorp/lucideblox/tree/master/src/modules/util - Created by 7kayoh
-local Icons = {}
 
-local Success, Response = pcall(function()
-	Icons = HttpService:JSONDecode(game:HttpGetAsync("https://raw.githubusercontent.com/evoincorp/lucideblox/master/src/modules/util/icons.json")).icons
-end)
 
-if not Success then
-	warn("\nOrion Library - Failed to load Feather Icons. Error code: " .. Response .. "\n")
-end	
+
+
+
+
 
 local function GetIcon(IconName)
 	if Icons[IconName] ~= nil then
@@ -61,7 +57,7 @@ local Modal = Instance.new("TextButton")
 
 local FocusDrag = nil
 
-Orion.Name = "OrionBliz"
+Orion.Name = "OrionTraco"
 
 getgenv().gethui = function() return game.CoreGui end
 
@@ -519,6 +515,7 @@ end
 
 function OrionLib:MakeWindow(WindowConfig)
 	local FirstTab = true
+	local Minimized = false
 	local Loaded = false
 	local UIHidden = false
 	
@@ -532,8 +529,9 @@ function OrionLib:MakeWindow(WindowConfig)
 		WindowConfig.IntroEnabled = true
 	end
 	WindowConfig.FreeMouse = WindowConfig.FreeMouse or false
-	WindowConfig.KeyToOpenWindow = WindowConfig.KeyToOpenWindow or "RightShift"
+	WindowConfig.KeyToOpenWindow = WindowConfig.KeyToOpenWindow or "Q"
 	WindowConfig.IntroText = WindowConfig.IntroText or "Orion Library"
+	WindowConfig.CloseCallback = WindowConfig.CloseCallback or function() end
 	WindowConfig.ShowIcon = WindowConfig.ShowIcon or false
 	WindowConfig.Icon = WindowConfig.Icon or "rbxassetid://8834748103"
 	WindowConfig.IntroIcon = WindowConfig.IntroIcon or "rbxassetid://8834748103"
@@ -582,6 +580,7 @@ function OrionLib:MakeWindow(WindowConfig)
 		TabHolder.CanvasSize = UDim2.new(0, 0, 0, TabHolder.UIListLayout.AbsoluteContentSize.Y + 16)
 	end)
 
+	local CloseBtn = SetChildren(SetProps(MakeElement("Button"), {
 		Size = UDim2.new(0.5, 0, 1, 0),
 		Position = UDim2.new(0.5, 0, 0, 0),
 		BackgroundTransparency = 1
@@ -592,6 +591,7 @@ function OrionLib:MakeWindow(WindowConfig)
 		}), "Text")
 	})
 
+	local MinimizeBtn = SetChildren(SetProps(MakeElement("Button"), {
 		Size = UDim2.new(0.5, 0, 1, 0),
 		BackgroundTransparency = 1
 	}), {
@@ -705,6 +705,8 @@ function OrionLib:MakeWindow(WindowConfig)
 					Size = UDim2.new(0, 1, 1, 0),
 					Position = UDim2.new(0.5, 0, 0, 0)
 				}), "Stroke"), 
+				CloseBtn,
+				MinimizeBtn
 			}), "Second"), 
 		}),
 		DragPoint,
@@ -738,6 +740,7 @@ function OrionLib:MakeWindow(WindowConfig)
 		end
 	end
 
+	AddConnection(CloseBtn.MouseButton1Up, function()
 		MainWindow.Visible = false
 		UIHidden = true
 		
@@ -752,6 +755,7 @@ function OrionLib:MakeWindow(WindowConfig)
 		})
 
 		showMobileOpenButton()
+		WindowConfig.CloseCallback()
 	end)
 
 	AddConnection(UserInputService.InputBegan, function(Input, Focus)
@@ -782,7 +786,10 @@ function OrionLib:MakeWindow(WindowConfig)
 		end
 	end)
 
+	AddConnection(MinimizeBtn.MouseButton1Up, function()
+		if Minimized then
 			TweenService:Create(MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, 615, 0, 344)}):Play()
+			MinimizeBtn.Ico.Image = "rbxassetid://7072719338"
 			wait(.02)
 			MainWindow.ClipsDescendants = false
 			WindowStuff.Visible = true
@@ -790,11 +797,13 @@ function OrionLib:MakeWindow(WindowConfig)
 		else
 			MainWindow.ClipsDescendants = true
 			WindowTopBarLine.Visible = false
+			MinimizeBtn.Ico.Image = "rbxassetid://7072720870"
 
 			TweenService:Create(MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, WindowName.TextBounds.X + 140, 0, 50)}):Play()
 			wait(0.1)
 			WindowStuff.Visible = false	
 		end
+		Minimized = not Minimized    
 	end)
 
 	local function LoadSequence()
@@ -837,6 +846,7 @@ function OrionLib:MakeWindow(WindowConfig)
 	if WindowConfig.FreeMouse then
 		OrionLib:MakeNotification({
 			Name = "Free Mouse mode is on",
+			Content = "if you want it to go back to normal, just press M or close the GUI",
 			Time = 10
 		})
 	end
@@ -1965,11 +1975,7 @@ function OrionLib:MakeWindow(WindowConfig)
 	--				})
 	--			})
 	--		end
-	--		OrionLib:MakeNotification({
-	--			Name = "UI Library Available",
-	--			Content = "New UI Library Available - Joining Discord (#announcements)",
-	--			Time = 8
-	--		})
+	-
 	--		spawn(function()
 	--			local UI = game:GetObjects("rbxassetid://11403719739")[1]
 
